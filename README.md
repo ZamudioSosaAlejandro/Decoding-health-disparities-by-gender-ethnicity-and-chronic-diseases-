@@ -84,4 +84,4 @@ The codebase is organized into modular R scripts corresponding to each analytica
 
 Model training relies on repeated cross-validation (10 repetitions, 3-fold cross-validation) using the caret framework, with weighted training and validation based on survey expansion factors. Random forest models are implemented using the ranger package, with hyperparameter tuning over mtry values ranging from 3 to 10.
 
-Model performance is evaluated using the area under the receiver operating characteristic curve (AUC). Variable importance is assessed using a model-agnostic approach by measuring the average decrease in AUC after variable neutralization across 50 resamples.
+Model performance is evaluated using the area under the receiver operating characteristic curve (AUC). Variable importance is assessed using a model-agnostic approach by measuring the average decrease in AUC after variable neutralization across 50 resamples.# Decoding-health-disparities-by-gender-ethnicity-and-chronic-diseases-
