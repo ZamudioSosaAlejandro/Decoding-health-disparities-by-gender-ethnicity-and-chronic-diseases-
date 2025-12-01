@@ -12,7 +12,7 @@ library(doParallel)   # Parallel processing (if needed)
 # library("gbm")
 # library(e1071)
 # library(Matching)
-
+setwd("D:/Alejandro - Carlos/Proyecto Brasil/2da parte Proyecto/Tercer paper/Manuscrito/Nature Communications/Para publicar/Codigo/Respositorio")
 # ------------------------------------------------------------
 # 1. DATA LOADING AND PREPROCESSING
 # ------------------------------------------------------------
@@ -43,6 +43,44 @@ df_poblacion_2 <- df_poblacion_2 %>%
   
   # Remove unnecessary columns
   dplyr::select(-X, -Illiteracy)
+##########################################################
+###Hyperparameter selection using cross-validation
+
+df_poblacion_test <- df_poblacion_2 %>%
+  filter(Age > 19) %>%
+  dplyr::select(-Sex, -Ethnicity) %>%
+  na.omit()
+ 
+index_Sample <- createDataPartition(df_poblacion_test$Dx_Cronical_disease, p = .1, list = FALSE)
+
+df_poblacion_test <- df_poblacion_test %>%
+  mutate_at(1:8,as.numeric) 
+# We divide between train and test
+
+train <- df_poblacion_test[index_Sample,]
+test <- df_poblacion_test[-index_Sample,]
+
+# Hyperparameter
+hiperparametros <- expand.grid(mtry = c(3, 4, 5, 7, 10))
+#===============================================================================
+particiones  <- 10
+repeticiones <- 3
+
+control_train <- trainControl(method = "repeatedcv", number = particiones,
+                              repeats = repeticiones,
+                              returnResamp = "final", verboseIter = FALSE,
+                              allowParallel = TRUE)
+
+set.seed(1234)
+modelo_rf_all <- train(Dx_Cronical_disease ~ ., data = train,
+                            method = "rf",
+                            tuneGrid = hiperparametros,
+                            metric = "AUC",
+                            trControl = control_train,
+                            # Número de árboles ajustados
+                            num.trees = 300)
+#We selected the best hyperparameters
+modelo_rf_all
 
 # ------------------------------------------------------------
 # 2. SUBSET CREATION: MIXED-RACE MEN
