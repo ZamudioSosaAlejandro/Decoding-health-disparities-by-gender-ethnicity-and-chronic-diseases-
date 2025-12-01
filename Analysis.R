@@ -12,7 +12,7 @@ library(doParallel)   # Parallel processing (if needed)
 # library("gbm")
 # library(e1071)
 # library(Matching)
-setwd("D:/Alejandro - Carlos/Proyecto Brasil/2da parte Proyecto/Tercer paper/Manuscrito/Nature Communications/Para publicar/Codigo/Respositorio")
+
 # ------------------------------------------------------------
 # 1. DATA LOADING AND PREPROCESSING
 # ------------------------------------------------------------
