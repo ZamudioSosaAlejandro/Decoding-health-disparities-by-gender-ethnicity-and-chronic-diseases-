@@ -64,8 +64,6 @@ Code execution and run time
 
 The analytical workflow consists of:
 
-Descriptive weighted analyses of social determinants
-
 Training and evaluation of random forest models by gender and ethnicity
 
 Model-agnostic variable importance analysis based on missing AUC
